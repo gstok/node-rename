@@ -17,14 +17,13 @@ function cpRenameDirFile (dirPath, outPath) {
             let oldName = file;
             let extName = path.extname(file);
             let oldPath = `${ dirPath }/${ oldName }`;
-            let uuid = UUID();
+            let uuid = UUID().replace(/-/g, "");
             let newName = uuid + extName;
             let newPath = `${ outPath }/${ newName }`;
             if (extName.toLowerCase() == ".png") {
-                Sharp(oldPath).toFile(outPath + `/CCC${ uuid }.jpg`);
+                Sharp(oldPath).toFile(outPath + `/${ uuid }.jpg`);
             }
             else {
-                // fs.renameSync(oldPath, newPath);
                 fs.copyFileSync(oldPath, newPath);
                 console.log(oldPath.green, newPath.red);
             }
